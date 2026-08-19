@@ -1,22 +1,25 @@
 import { useState, useMemo } from "react";
 import {
-  ShoppingCart, X, Plus, Minus, Zap, Check, Smartphone,
-  BatteryCharging, Headphones, Cable, ChevronRight, Circle
+  ShoppingCart, X, Plus, Minus, Zap, Check, ChevronRight, Circle
 } from "lucide-react";
 
 const PRODUCTS = [
-  { id: "p1", name: "Funda MagSafe Aurora", cat: "Fundas", price: 39.9, icon: Smartphone, tint: "#C6FF3D" },
-  { id: "p2", name: "Cargador GaN 65W Turbo", cat: "Cargadores", price: 89.9, icon: Zap, tint: "#4DE8FF" },
-  { id: "p3", name: "Audífonos TWS Bass X", cat: "Audio", price: 119.9, icon: Headphones, tint: "#C6FF3D" },
-  { id: "p4", name: "Soporte MagCharge 3en1", cat: "Soportes", price: 129.9, icon: Circle, tint: "#4DE8FF" },
-  { id: "p5", name: "Cable USB-C Trenzado 2m", cat: "Cables", price: 24.9, icon: Cable, tint: "#C6FF3D" },
-  { id: "p6", name: "PowerBank 10000mAh Slim", cat: "Baterías", price: 79.9, icon: BatteryCharging, tint: "#4DE8FF" },
+  { id: "p1", name: "Audífonos Ear Clip", cat: "Audio", price: 109.9, img: "/products/earclip.jpg" },
+  { id: "p2", name: "Audífonos P9 Pro Max", cat: "Audio", price: 94.9, img: "/products/p9promax.jpeg" },
+  { id: "p3", name: "Audífonos Estilo Arete", cat: "Audio", price: 62.9, img: "/products/arete.png" },
+  { id: "p4", name: "Audífonos Bluetooth Pro 6", cat: "Audio", price: 64.9, img: "/products/pro6.jpg" },
+  { id: "p5", name: "Audífonos F9 5c + Power Bank", cat: "Audio", price: 84.9, img: "/products/f95c.jpg" },
+  { id: "p6", name: "Smartwatch Watch 8 Ultra", cat: "Smartwatch", price: 114.9, img: "/products/watch8ultra.jpg" },
+  { id: "p7", name: "Smartwatch T900 Pro Max S9", cat: "Smartwatch", price: 74.9, img: "/products/t900.jpg" },
+  { id: "p8", name: "Lentes con Audífonos Bluetooth", cat: "Audio", price: 64.9, img: "/products/lentesbt.png" },
+  { id: "p9", name: "Cargador Inalámbrico 3 en 1", cat: "Cargadores", price: 84.9, img: "/products/cargador3en1.jpeg" },
+  { id: "p10", name: "Soporte para Celular", cat: "Accesorios", price: 27.9, img: "/products/soportecel.jpg" },
 ];
 
 const DISTRITOS = ["Miraflores", "San Isidro", "Surco", "La Molina", "San Borja", "Los Olivos", "San Miguel", "Otro (Lima)"];
 
 // 👉 CAMBIA ESTE NÚMERO por tu WhatsApp Business (formato: código de país + número, sin + ni espacios)
-const WHATSAPP_NUMBER = "51946794469";
+const WHATSAPP_NUMBER = "5194679469";
 
 const COLORS = {
   bg: "#0B0F14",
@@ -148,10 +151,10 @@ export default function VoltioTienda() {
               Envíos a todo Lima · 24-72h
             </p>
             <h1 className="font-display font-bold leading-[1.05]" style={{ fontSize: "clamp(2.2rem, 5vw, 3.6rem)" }}>
-              Accesorios tech que <span style={{ color: COLORS.lime }}>sí llegan</span> a tu puerta.
+              Audio y smartwatches que <span style={{ color: COLORS.lime }}>sí llegan</span> a tu puerta.
             </h1>
             <p className="mt-4 max-w-xl" style={{ color: COLORS.muted }}>
-              Fundas, cargadores y audio seleccionados para tu día a día. Paga con tarjeta o Yape, sin sorpresas en el precio.
+              Audífonos, relojes inteligentes y accesorios tech seleccionados para tu día a día. Paga por Yape o Plin, coordinamos todo por WhatsApp.
             </p>
           </section>
 
@@ -165,30 +168,28 @@ export default function VoltioTienda() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {PRODUCTS.map((p) => {
-                const Icon = p.icon;
                 return (
                   <div
                     key={p.id}
-                    className="rounded-2xl p-5 flex flex-col justify-between"
+                    className="rounded-2xl overflow-hidden flex flex-col justify-between"
                     style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}` }}
                   >
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                      style={{ background: "rgba(255,255,255,0.04)" }}
-                    >
-                      <Icon size={22} color={p.tint} />
+                    <div className="w-full aspect-square overflow-hidden" style={{ background: "#0000" }}>
+                      <img src={p.img} alt={p.name} className="w-full h-full object-cover" />
                     </div>
-                    <p className="font-mono text-xs mb-1" style={{ color: COLORS.muted }}>{p.cat}</p>
-                    <h3 className="font-display font-medium mb-3">{p.name}</h3>
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono font-medium">S/ {p.price.toFixed(2)}</span>
-                      <button
-                        onClick={() => addToCart(p.id)}
-                        className="flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium"
-                        style={{ background: COLORS.lime, color: "#0B0F14" }}
-                      >
-                        <Plus size={14} /> Agregar
-                      </button>
+                    <div className="p-4 flex flex-col flex-1">
+                      <p className="font-mono text-xs mb-1" style={{ color: COLORS.muted }}>{p.cat}</p>
+                      <h3 className="font-display font-medium mb-3">{p.name}</h3>
+                      <div className="flex items-center justify-between mt-auto">
+                        <span className="font-mono font-medium">S/ {p.price.toFixed(2)}</span>
+                        <button
+                          onClick={() => addToCart(p.id)}
+                          className="flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium"
+                          style={{ background: COLORS.lime, color: "#0B0F14" }}
+                        >
+                          <Plus size={14} /> Agregar
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );
